@@ -9,33 +9,33 @@ namespace AdventOfCode
     public class Day_2 : BaseDay
     {
         private readonly string _input;
-
+        List<Password> passwords = new List<Password>();
         public Day_2()
         {
             if (File.Exists(InputFilePath))
             {
                 _input = File.ReadAllText(InputFilePath);
+
+                string[] lines = _input.Split("\r\n");
+                foreach (string line in lines)
+                {
+                    string[] policyRaw = line.Split(" ");
+                    string[] appearancesRaw = policyRaw[0].Split("-");
+                    Password p = new Password();
+                    p.Policy = new PasswordPolicy();
+                    p.PasswordValue = policyRaw[2];
+                    p.Policy.Appearances = new Appearances();
+                    p.Policy.Appearances.High = Convert.ToInt32(appearancesRaw[1]);
+                    p.Policy.Appearances.Low = Convert.ToInt32(appearancesRaw[0]);
+                    p.Policy.Letter = policyRaw[1].Substring(0, 1);
+
+                    passwords.Add(p);
+                }
             }
         }
 
         public override string Solve_1()
         {
-            string[] lines = _input.Split("\r\n");
-            List<Password> passwords = new List<Password>(); ;
-            foreach(string line in lines)
-            {
-                string[] policyRaw = line.Split(" ");
-                string[] appearancesRaw = policyRaw[0].Split("-");
-                Password p = new Password();
-                p.Policy = new PasswordPolicy();
-                p.PasswordValue = policyRaw[2];
-                p.Policy.Appearances = new Appearances();
-                p.Policy.Appearances.High = Convert.ToInt32(appearancesRaw[1]);
-                p.Policy.Appearances.Low = Convert.ToInt32(appearancesRaw[0]);
-                p.Policy.Letter = policyRaw[1].Substring(0, 1);
-
-                passwords.Add(p);
-            }
             int validPasswords = 0;
             foreach(Password password in passwords)
             {
@@ -44,7 +44,7 @@ namespace AdventOfCode
                     validPasswords++;
                 }
             }
-            return $"Valid passwords is:{validPasswords}";
+            return $"{validPasswords}";
         }
         private bool IsValidSolve1(Password password)
         {
@@ -100,7 +100,7 @@ namespace AdventOfCode
                     validPasswords++;
                 }
             }
-            return $"Valid passwords is:{validPasswords}";
+            return $"{validPasswords}";
         }
     }
 }
