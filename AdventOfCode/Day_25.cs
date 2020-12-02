@@ -3,11 +3,11 @@ using System.IO;
 
 namespace AdventOfCode
 {
-    public class Day_26 : BaseDay
+    public class Day_25 : BaseDay
     {
         private readonly string _input;
 
-        public Day_26()
+        public Day_25()
         {
             if (File.Exists(InputFilePath))
             {
