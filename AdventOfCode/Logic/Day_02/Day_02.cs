@@ -46,6 +46,19 @@ namespace AdventOfCode
             }
             return $"{validPasswords}";
         }
+        public override string Solve_2()
+        {
+            string[] lines = _input.Split("\r\n");
+            int validPasswords = 0;
+            foreach (Password password in passwords)
+            {
+                if (IsValidSolve2(password))
+                {
+                    validPasswords++;
+                }
+            }
+            return $"{validPasswords}";
+        }
         private bool IsValidSolve1(Password password)
         {
             char[] passwordAsChars = password.PasswordValue.ToCharArray();
@@ -74,33 +87,6 @@ namespace AdventOfCode
             }
             return false;
         }
-        public override string Solve_2()
-        {
-            string[] lines = _input.Split("\r\n");
-            List<Password> passwords = new List<Password>(); ;
-            foreach (string line in lines)
-            {
-                string[] policyRaw = line.Split(" ");
-                string[] appearancesRaw = policyRaw[0].Split("-");
-                Password p = new Password();
-                p.Policy = new PasswordPolicy();
-                p.PasswordValue = policyRaw[2];
-                p.Policy.Appearances = new Appearances();
-                p.Policy.Appearances.High = Convert.ToInt32(appearancesRaw[1]);
-                p.Policy.Appearances.Low = Convert.ToInt32(appearancesRaw[0]);
-                p.Policy.Letter = policyRaw[1].Substring(0, 1);
 
-                passwords.Add(p);
-            }
-            int validPasswords = 0;
-            foreach (Password password in passwords)
-            {
-                if (IsValidSolve2(password))
-                {
-                    validPasswords++;
-                }
-            }
-            return $"{validPasswords}";
-        }
     }
 }
