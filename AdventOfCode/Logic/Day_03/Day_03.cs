@@ -47,10 +47,8 @@ namespace AdventOfCode
                 {
                     currentX -= lines[i].Length;
                 }
-                if (down > 1)
-                {
-                    i += (down - 1);
-                }
+
+                i += (down - 1);
             }
             return trees;
         }
