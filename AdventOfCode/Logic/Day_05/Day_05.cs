@@ -1,5 +1,6 @@
 ﻿using AoCHelper;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace AdventOfCode
     public class Day_05 : BaseDay
     {
         private readonly string[] lines;
+        private readonly List<int> seatIds = new List<int>();
 
         public Day_05()
         {
@@ -63,6 +65,7 @@ namespace AdventOfCode
                 int column = Convert.ToInt32(high);
 
                 int tempSeatId = GetSeatId(row, column);
+                seatIds.Add(tempSeatId);
                 if(tempSeatId > highestSeatId)
                 {
                     highestSeatId = tempSeatId;
@@ -76,6 +79,13 @@ namespace AdventOfCode
         }
         public override string Solve_2()
         {
+            for(int i =0; i < 842; i++)
+            {
+                if(!seatIds.Contains(i))
+                {
+                    Debug.WriteLine($"Seat ID:{i} not in seatIds list");
+                }
+            }
             return $"";
         }
     }
